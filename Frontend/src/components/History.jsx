@@ -9,6 +9,9 @@ import { toast } from 'sonner';
 import moment from "moment";
 
 const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://quizlab.onrender.com/api/user";
+const VIDEO_API_END_POINT = import.meta.env.VITE_API_END_POINT_VIDEO || "https://quizlab.onrender.com/api/video";
+const QUESTION_API_END_POINT = import.meta.env.VITE_API_END_POINT_QUESTION || "https://quizlab.onrender.com/api/question";
+const FLASK_API_END_POINT = import.meta.env.VITE_FLASK_END_POINT || "https://quizlab-flask.onrender.com";
 
 const HistoryPage = () => {
     const navigate = useNavigate();
@@ -64,7 +67,7 @@ const HistoryPage = () => {
     const handleDelete = async (videoId) => {
         try {
             setLoading(true);
-            const response = await axios.delete(`http://localhost:8000/api/video/delete/${videoId}`, {
+            const response = await axios.delete(`${VIDEO_API_END_POINT}/delete/${videoId}`, {
                 data: { userId: user._id }
             });
 
@@ -112,7 +115,7 @@ const HistoryPage = () => {
 
     const fetchVideoDetails = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/video/summary/${selectedVideo._id}`, {
+            const response = await axios.get(`${VIDEO_API_END_POINT}/summary/${selectedVideo._id}`, {
                 withCredentials: true, // Send cookies with request
             });
             if (response.data.success) {
@@ -137,7 +140,7 @@ const HistoryPage = () => {
             const transcription = videoDetails.transcription;
 
             const response = await axios.post(
-                'http://127.0.0.1:5000/modify',
+                `${FLASK_API_END_POINT}/modify`,
                 {
                     modification_input: `Give me ${numQuestions} quiz questions from the text in JSON format, in the format of question as string, options as array of strings, correctAns as string.`,
                     transcription: transcription,
@@ -158,7 +161,7 @@ const HistoryPage = () => {
             const quizQuestions = JSON.parse(jsonString);
 
             const saveQuizResponse = await axios.post(
-                'http://localhost:8000/api/question/saveQuestion',
+                `${QUESTION_API_END_POINT}/saveQuestion`,
                 { quizQuestions: quizQuestions, videoId: videoDetails._id },
                 { headers: { 'Content-Type': 'application/json' } }
             );
