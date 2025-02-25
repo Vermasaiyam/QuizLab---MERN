@@ -205,7 +205,7 @@ const HistoryPage = () => {
 
             {loading ? (
                 <p className="min-w-full min-h-[80vh] flex items-center justify-center">
-                    <Loader2 className="w-10 h-10" />
+                    <Loader2 className="w-10 h-10 animate-spin" />
                 </p>
             ) : (
                 <>
