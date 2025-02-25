@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setAuthUser } from '../redux/authSlice.js';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
+const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://feasto-3uh7.onrender.com/api/user";
+
 const Login = () => {
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
@@ -31,7 +33,7 @@ const Login = () => {
         console.log(input);
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:8000/api/user/login', input, {
+            const res = await axios.post(`${API_END_POINT}/login`, input, {
                 headers: {
                     'Content-Type': 'application/json'
                 },

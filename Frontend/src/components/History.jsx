@@ -8,6 +8,8 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import { toast } from 'sonner';
 import moment from "moment";
 
+const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://feasto-3uh7.onrender.com/api/user";
+
 const HistoryPage = () => {
     const navigate = useNavigate();
     const [history, setHistory] = useState([]);
@@ -26,7 +28,7 @@ const HistoryPage = () => {
             try {
                 console.log("User ID:", user?._id);
 
-                const response = await axios.get(`http://localhost:8000/api/user/userData/${user._id}`);
+                const response = await axios.get(`${API_END_POINT}/userData/${user._id}`);
                 console.log("API Response Data:", response.data);
 
                 setHistory(Array.isArray(response.data.user.videos) ? response.data.user.videos : []);

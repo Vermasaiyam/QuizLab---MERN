@@ -5,6 +5,8 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
+const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://feasto-3uh7.onrender.com/api/user";
+
 export default function ChangePassword() {
     const { user } = useSelector(store => store.auth);
     const navigate = useNavigate();
@@ -35,7 +37,7 @@ export default function ChangePassword() {
 
         setIsLoading(true);
         try {
-            const res = await axios.post("http://localhost:8000/api/user/change-password", passwordData, {
+            const res = await axios.post(`${API_END_POINT}/change-password`, passwordData, {
                 headers: { "Content-Type": "application/json" },
                 withCredentials: true,
             });

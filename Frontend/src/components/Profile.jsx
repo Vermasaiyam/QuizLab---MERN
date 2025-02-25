@@ -7,6 +7,8 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { setAuthUser } from '../redux/authSlice';
 
+const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://feasto-3uh7.onrender.com/api/user";
+
 const Profile = () => {
     const params = useParams();
     const userId = params.id;
@@ -31,7 +33,7 @@ const Profile = () => {
                 const userId = user._id; // You should have the user object from Redux or wherever you're storing it
                 console.log("Deleting user with ID:", userId);  // Log to check if `userId` is available
 
-                const response = await axios.delete(`http://localhost:8000/api/user/delete/${userId}`);
+                const response = await axios.delete(`${API_END_POINT}/delete/${userId}`);
 
                 if (response.status === 200) {
                     toast.success("Account deleted successfully.");

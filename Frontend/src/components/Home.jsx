@@ -5,6 +5,9 @@ import axios from 'axios';
 import { Loader2 } from "lucide-react";
 import TextCarousel from "./TextCrousel";
 
+const VIDEO_API_END_POINT = import.meta.env.VITE_API_END_POINT_VIDEO || "https://feasto-3uh7.onrender.com/api/video";
+const FLASK_API_END_POINT = import.meta.env.VITE_FLASK_END_POINT || "https://quizlab-flask.onrender.com";
+
 export default function Home() {
     const navigate = useNavigate();
     const [file, setFile] = useState(null);
@@ -55,7 +58,7 @@ export default function Home() {
 
         try {
             if (inputType === "youtube") {
-                const response = await fetch('http://localhost:5000/download-audio', {
+                const response = await fetch(`${FLASK_API_END_POINT}/download-audio`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ url: youTubeUrl }),
@@ -81,7 +84,7 @@ export default function Home() {
                 formData.append("youTubeUrl", youTubeUrl);
 
                 const uploadResponse = await axios.post(
-                    "http://localhost:8000/api/video/uploadVideo",
+                    `${VIDEO_API_END_POINT}/uploadVideo`,
                     formData,
                     {
                         headers: { "Content-Type": "multipart/form-data" },
@@ -97,14 +100,12 @@ export default function Home() {
                 const video = uploadResponse.data.video;
                 const videoUrl = video.videoUrl;
 
-                console.log("Video uploaded successfully:", videoUrl);
-
                 // Step 2: Send MP3 file to Python backend for transcription
                 const transcriptionFormData = new FormData();
                 transcriptionFormData.append("file", file);
 
                 const transcriptionResponse = await axios.post(
-                    "http://127.0.0.1:5000/transcribe",
+                    `${FLASK_API_END_POINT}/transcribe`,
                     transcriptionFormData,
                     {
                         headers: { "Content-Type": "multipart/form-data" },
@@ -117,11 +118,9 @@ export default function Home() {
                     return;
                 }
 
-                console.log("Transcription:", transcription);
-
                 // Step 3: Request summary from Python backend
                 const summaryResponse = await axios.post(
-                    "http://127.0.0.1:5000/modify",
+                    `${FLASK_API_END_POINT}/modify`,
                     {
                         modification_input: "Give me a summary of the transcribed text.",
                         transcription: transcription,
@@ -135,8 +134,6 @@ export default function Home() {
                     return;
                 }
 
-                console.log("Summary:", summaryText);
-
                 // Step 4: Save transcription and summary in the database
                 const payload = {
                     videoId: video._id,
@@ -147,7 +144,7 @@ export default function Home() {
                 };
 
                 const saveTranscriptionResponse = await axios.post(
-                    "http://localhost:8000/api/video/uploadTranscription",
+                    `${VIDEO_API_END_POINT}/uploadTranscription`,
                     payload,
                     {
                         headers: { "Content-Type": "application/json" },
@@ -161,13 +158,11 @@ export default function Home() {
                     toast.error("Failed to save transcription.");
                 }
             } else {
-                // File upload logic (for audio/video files)
                 const formData = new FormData();
                 formData.append("file", file);
 
-                // Upload video to Node.js backend
                 const uploadResponse = await axios.post(
-                    "http://localhost:8000/api/video/uploadVideo",
+                    `${VIDEO_API_END_POINT}/uploadVideo`,
                     formData,
                     {
                         headers: { "Content-Type": "multipart/form-data" },
@@ -189,7 +184,7 @@ export default function Home() {
                 transcriptionFormData.append("file", file);
 
                 const transcriptionResponse = await axios.post(
-                    "http://127.0.0.1:5000/transcribe",
+                    `${FLASK_API_END_POINT}/transcribe`,
                     transcriptionFormData,
                     {
                         headers: { "Content-Type": "multipart/form-data" },
@@ -204,11 +199,11 @@ export default function Home() {
                     return;
                 }
 
-                console.log("Transcription: ", transcription);
+                // console.log("Transcription: ", transcription);
 
                 // Request summary from Python backend
                 const summaryResponse = await axios.post(
-                    "http://127.0.0.1:5000/modify",
+                    `${FLASK_API_END_POINT}/modify`,
                     {
                         modification_input: "give me summary of the transcribed text.",
                         transcription: transcription,
@@ -224,7 +219,7 @@ export default function Home() {
                     return;
                 }
 
-                console.log("Summary: ", summaryText);
+                // console.log("Summary: ", summaryText);
 
                 // Save transcription and summary in the database
                 const payload = {
@@ -234,7 +229,7 @@ export default function Home() {
                 };
 
                 const saveTranscriptionResponse = await axios.post(
-                    "http://localhost:8000/api/video/uploadTranscription",
+                    `${VIDEO_API_END_POINT}/uploadTranscription`,
                     payload,
                     {
                         headers: { "Content-Type": "application/json" },

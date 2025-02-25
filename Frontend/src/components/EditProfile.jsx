@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setAuthUser } from "../redux/authSlice";
 
+const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://feasto-3uh7.onrender.com/api/user";
+
 export default function EditProfile() {
     const { user } = useSelector(store => store.auth);
     const dispatch = useDispatch();
@@ -42,7 +44,7 @@ export default function EditProfile() {
         }
 
         try {
-            const res = await axios.post('http://localhost:8000/api/user/profile/edit', formData, {
+            const res = await axios.post(`${API_END_POINT}/profile/edit`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data' // Ensure multipart/form-data is used
                 },

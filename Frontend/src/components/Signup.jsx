@@ -6,6 +6,8 @@ import { toast } from 'sonner';
 import { useSelector } from 'react-redux';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
+const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://feasto-3uh7.onrender.com/api/user";
+
 const Signup = () => {
     const [show, setShow] = useState(false);
     const handleClick = () => setShow(!show);
@@ -29,7 +31,7 @@ const Signup = () => {
         console.log(input);
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:8000/api/user/register', input, {
+            const res = await axios.post(`${API_END_POINT}/register`, input, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
