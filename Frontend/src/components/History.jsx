@@ -196,10 +196,18 @@ const HistoryPage = () => {
                     Total Points Earned: {totalScore}
                 </div>
                 <Link
-                    to={'https://cartiify.vercel.app/'}
-                    target="_blank"
+                    to={totalScore > 0 ? 'https://cartiify.vercel.app/' : '#'}
+                    target={totalScore > 0 ? "_blank" : undefined}
                 >
-                    <button className="bg-blue-500 text-white py-1.5 px-2.5 text-sm rounded-md shadow hover:bg-blue-600 transition cursor-pointer">Reedem Now</button>
+                    <button
+                        className={`py-1.5 px-2.5 text-sm rounded-md shadow transition cursor-pointer ${totalScore > 0
+                                ? "bg-blue-500 text-white hover:bg-blue-600"
+                                : "bg-gray-400 text-gray-200 cursor-not-allowed"
+                            }`}
+                        disabled={totalScore === 0}
+                    >
+                        Reedem Now
+                    </button>
                 </Link>
             </div>
 
