@@ -5,6 +5,10 @@ import { Loader2 } from "lucide-react";
 import 'react-circular-progressbar/dist/styles.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 
+const VIDEO_API_END_POINT = import.meta.env.VITE_API_END_POINT_VIDEO || "https://feasto-3uh7.onrender.com/api/video";
+const QUESTION_API_END_POINT = import.meta.env.VITE_API_END_POINT_QUESTION || "https://feasto-3uh7.onrender.com/api/question";
+const FLASK_API_END_POINT = import.meta.env.VITE_FLASK_END_POINT || "https://quizlab-flask.onrender.com";
+
 const QuizPage = () => {
     const { id } = useParams();
     const [questions, setQuestions] = useState([]);
@@ -17,7 +21,7 @@ const QuizPage = () => {
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/question/${id}/questions`);
+                const response = await axios.get(`${QUESTION_API_END_POINT}/${id}/questions`);
                 setQuestions(response.data.questions);
                 setSelectedOptions(new Array(response.data.questions.length).fill(''));
             } catch (error) {
@@ -65,7 +69,7 @@ const QuizPage = () => {
         setSubmitted(true);
 
         try {
-            const response = await axios.post(`http://localhost:8000/api/video/${id}/score`, {
+            const response = await axios.post(`${VIDEO_API_END_POINT}/${id}/score`, {
                 videoId: id,
                 score: calculatedScore,
             });
@@ -111,12 +115,10 @@ const QuizPage = () => {
                 <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-2xl">
                     {currentQuestion ? (
                         <>
-                            {/* Question Title */}
                             <h2 className="text-xl font-semibold mb-6 text-gray-800">
                                 {`Q${currentQuestionIndex + 1}. ${currentQuestion.question}`}
                             </h2>
 
-                            {/* Options */}
                             <div className="space-y-3">
                                 {currentQuestion.options.map((option, index) => (
                                     <label
