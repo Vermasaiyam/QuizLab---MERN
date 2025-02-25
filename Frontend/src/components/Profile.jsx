@@ -7,7 +7,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { setAuthUser } from '../redux/authSlice';
 
-const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://feasto-3uh7.onrender.com/api/user";
+const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://quizlab.onrender.com/api/user";
 
 const Profile = () => {
     const params = useParams();

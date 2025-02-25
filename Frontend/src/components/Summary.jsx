@@ -4,8 +4,8 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 
-const VIDEO_API_END_POINT = import.meta.env.VITE_API_END_POINT_VIDEO || "https://feasto-3uh7.onrender.com/api/video";
-const QUESTION_API_END_POINT = import.meta.env.VITE_API_END_POINT_QUESTION || "https://feasto-3uh7.onrender.com/api/question";
+const VIDEO_API_END_POINT = import.meta.env.VITE_API_END_POINT_VIDEO || "https://quizlab.onrender.com/api/video";
+const QUESTION_API_END_POINT = import.meta.env.VITE_API_END_POINT_QUESTION || "https://quizlab.onrender.com/api/question";
 const FLASK_API_END_POINT = import.meta.env.VITE_FLASK_END_POINT || "https://quizlab-flask.onrender.com";
 
 const SummaryPage = () => {

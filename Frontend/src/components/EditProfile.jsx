@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setAuthUser } from "../redux/authSlice";
 
-const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://feasto-3uh7.onrender.com/api/user";
+const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://quizlab.onrender.com/api/user";
 
 export default function EditProfile() {
     const { user } = useSelector(store => store.auth);

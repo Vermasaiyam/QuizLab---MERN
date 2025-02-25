@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Loader2 } from "lucide-react";
 import TextCarousel from "./TextCrousel";
 
-const VIDEO_API_END_POINT = import.meta.env.VITE_API_END_POINT_VIDEO || "https://feasto-3uh7.onrender.com/api/video";
+const VIDEO_API_END_POINT = import.meta.env.VITE_API_END_POINT_VIDEO || "https://quizlab.onrender.com/api/video";
 const FLASK_API_END_POINT = import.meta.env.VITE_FLASK_END_POINT || "https://quizlab-flask.onrender.com";
 
 export default function Home() {

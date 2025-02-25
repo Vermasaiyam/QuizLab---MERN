@@ -7,7 +7,7 @@ import { setAuthUser } from "../redux/authSlice";
 import axios from "axios";
 import { Menu, X } from "lucide-react";
 
-const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://feasto-3uh7.onrender.com/api/user";
+const API_END_POINT = import.meta.env.VITE_API_END_POINT_USER || "https://quizlab.onrender.com/api/user";
 
 export default function Header() {
   const { user } = useSelector((store) => store.auth);
